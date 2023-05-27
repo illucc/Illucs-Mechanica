@@ -1,5 +1,5 @@
 ![Logo-Recovered](vscreate_logo.png)
 
-# Eureka
+# Illuc's Wacky Clockwork Gadgets
 
-Basically Archimedes Ships, but with VS2 as the backend!
+Funky extra stuff for Clockwork
