@@ -19,6 +19,6 @@ public class VSCreateGroup extends VSCreateGroupBase {
 
     @Override
     public ItemStack makeIcon() {
-        return VSCreateBlocks.PROPELLOR_BEARING.asStack();
+        return VSCreateBlocks.BLIPDRIVE.asStack();
     }
 }
