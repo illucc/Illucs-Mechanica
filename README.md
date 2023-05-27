@@ -1,4 +1,4 @@
-![Logo-Recovered](vscreate_logo.png)
+![Logo-Recovered](placeholder.png)
 
 # Illuc's Wacky Clockwork Gadgets
 
