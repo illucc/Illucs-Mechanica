@@ -1,0 +1,160 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    forge {
+        convertAccessWideners = true
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+    }
+}
+
+configurations {
+    common
+    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+}
+
+repositories {
+    if (!block_external_repositories) {
+        // mavens for Forge-exclusives
+        maven { url = "https://maven.theillusivec4.top/" } // Curios
+        maven { // Create Forge and Registrate Forge
+            url = "https://maven.tterrag.com/"
+            content {
+                includeGroup("com.tterrag.registrate")
+                includeGroup("com.simibubi.create")
+            }
+        }
+
+        maven { url = "https://cursemaven.com" }
+    }
+
+    flatDir { // REMOVE IF CBC HAS BEEN UPDATED
+        dirs 'mods'
+    }
+}
+
+dependencies {
+    forge("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+    common(project(path: ":common", configuration: "namedElements")) { transitive = false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+
+    //VS2
+    modApi("org.valkyrienskies:valkyrienskies-118-forge:${rootProject.vs2_version}") { transitive = false }
+    implementation("org.valkyrienskies.core:api:1.1.0+2b2f93f793") { transitive = false }
+
+    // Create and its dependencies
+    modImplementation("com.simibubi.create:create-${minecraft_version}:${create_forge_version}:slim") { transitive = false }
+    modImplementation("com.tterrag.registrate:Registrate:${registrate_forge_version}")
+    modImplementation("com.jozufozu.flywheel:flywheel-forge-${flywheel_forge_minecraft_version}:${flywheel_forge_version}")
+
+    // Development QOL
+    modLocalRuntime("mezz.jei:jei-${minecraft_version}:${jei_forge_version}")
+
+    //Create big cannons
+    // modLocalRuntime('curse.maven:create-big-cannons-646668:4033862') is create .5.0.e not g
+
+    // JOML
+    compileOnly("org.joml:joml:1.10.4")
+    compileOnly("org.joml:joml-primitives:1.10.0")
+
+    // Add Kotlin for Forge.
+    implementation(forgeRuntimeLibrary('curse.maven:kotlinforforge-351264:3925887'))
+
+
+    // if you would like to add integration with JEI, uncomment this line.
+//    modCompileOnly("mezz.jei:jei-${minecraft_version}:${jei_forge_version}:api")
+
+    // CC Tweaked
+    modCompileOnly("curse.maven:cctweaked-282001:4061947")
+}
+
+processResources {
+    // set up properties for filling into metadata
+    Map<String, String> properties = Map.of(
+            "vs2_version", vs2_version,
+            "version", version,
+            "forge_version", forge_version.split("\\.")[0], // only specify major version of forge
+            "minecraft_version", minecraft_version,
+            "create_version", create_forge_version.split("-")[0] // cut off build number
+    )
+    properties.forEach((k, v) -> inputs.property(k, v))
+
+    filesMatching("META-INF/mods.toml") {
+        expand properties
+    }
+}
+
+loom {
+    forge {
+        mixinConfig(
+                "vs_clockwork-common.mixins.json",
+                "vs_clockwork.mixins.json"
+        )
+    }
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+    exclude "architectury.common.json"
+
+    configurations = [project.configurations.shadowCommon]
+    classifier "dev-shadow"
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    classifier null
+}
+
+jar {
+    classifier "dev"
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+publishing {
+    publications {
+        mavenForge(MavenPublication) {
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+        if (System.getenv("GITHUB_ACTOR") != null) {
+            println "Publishing to Github Packages"
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/ValkyrienSkies/Clockwork")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "org.valkyrienskies.vscreate.forge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "accessors.ItemAccessor",
+    "platform.MixinBlockEntity"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

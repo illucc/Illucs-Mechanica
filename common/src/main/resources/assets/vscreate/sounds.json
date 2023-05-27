@@ -1,0 +1,102 @@
+{
+  "physics_infuser_initialize": {
+    "sounds": [
+      {
+        "name": "vscreate:physics_infuser_initialize",
+        "type": "file",
+        "attenuation_distance": 64
+      }
+    ],
+    "subtitle": "vscreate.subtitle.physinitialize"
+  },
+  "physics_infuser_windup": {
+    "sounds": [
+      {
+        "name": "vscreate:physics_infuser_windup",
+        "type": "file",
+        "attenuation_distance": 32
+      }
+    ],
+    "subtitle": "vscreate.subtitle.physwindup"
+  },
+  "physics_infuser_lightning": {
+    "sounds": [
+      {
+        "name": "vscreate:physics_infuser_lightning",
+        "type": "file",
+        "attenuation_distance": 16
+      }
+    ],
+    "subtitle": "vscreate.subtitle.zap"
+  },
+  "physics_infuser_finish": {
+    "sounds": [
+      {
+        "name": "vscreate:physics_infuser_finish",
+        "type": "file",
+        "attenuation_distance": 64
+      }
+    ],
+    "subtitle": "vscreate.subtitle.physfinish"
+  },
+  "thick_fluid_swim": {
+    "sounds": [
+      {
+        "name": "vscreate:thick_fluid_swim",
+        "type": "file",
+        "attenuation_distance": 16
+      }
+    ],
+    "subtitle": "vscreate.subtitle.thick_fluid_swim"
+  },
+  "thick_fluid_fill": {
+    "sounds": [
+      {
+        "name": "vscreate:thick_fluid_fill",
+        "type": "file",
+        "attenuation_distance": 16
+      }
+    ],
+    "subtitle": "vscreate.subtitle.thick_fluid_fill"
+  },
+  "thick_fluid_empty": {
+    "sounds": [
+      {
+        "name": "vscreate:thick_fluid_empty",
+        "type": "file",
+        "attenuation_distance": 16
+      }
+    ],
+    "subtitle": "vscreate.subtitle.thick_fluid_empty"
+  },
+    "welder_weld": {
+        "sounds": [
+        {
+            "name": "vscreate:welder_weld",
+            "type": "file",
+            "attenuation_distance": 16
+        }
+        ],
+        "subtitle": "vscreate.subtitle.welder_weld"
+    },
+    "welder_whirr": {
+        "sounds": [
+        {
+            "name": "vscreate:welder_whirr",
+            "type": "file",
+            "attenuation_distance": 16
+        }
+        ],
+        "subtitle": "vscreate.subtitle.welder_whirr"
+    },
+    "supersonic": {
+      "sounds": [
+        {
+          "name": "vscreate:egg_reverie",
+          "type": "file",
+          "attenuation_distance": 32
+        }
+        ],
+        "subtitle": "vscreate.subtitle.supersonic"
+    }
+}
