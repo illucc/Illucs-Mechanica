@@ -1,4 +1,5 @@
-package org.valkyrienskies.vscreate.content.blipdrive;
+package org.valkyrienskies.vscreate.content.contraptions.physJammer;
+
 
 import com.simibubi.create.content.contraptions.components.structureMovement.bearing.BearingBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -17,11 +18,11 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.valkyrienskies.vscreate.VSCreateBlockEntities;
 
-
-public class BlipdriveBlock extends BearingBlock {
-    public BlipdriveBlock(BlockBehaviour.Properties properties) {
+public class PhysJammerBlock extends BearingBlock {
+    public PhysJammerBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
+
 
     @Override
     public boolean hasShaftTowards(LevelReader world, BlockPos pos, BlockState state, net.minecraft.core.Direction face) {

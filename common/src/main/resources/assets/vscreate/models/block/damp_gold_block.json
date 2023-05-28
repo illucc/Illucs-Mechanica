@@ -1,0 +1,6 @@
+{
+"parent": "block/cube_all",
+"textures": {
+"all": "vscreate:block/damp_gold_block"
+}
+}

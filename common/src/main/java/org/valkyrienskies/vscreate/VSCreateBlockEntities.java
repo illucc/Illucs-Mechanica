@@ -5,6 +5,7 @@ import com.simibubi.create.content.contraptions.base.KineticTileEntity;
 import com.simibubi.create.content.contraptions.relays.encased.ShaftInstance;
 import com.simibubi.create.content.contraptions.relays.encased.ShaftRenderer;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
+import org.valkyrienskies.vscreate.content.blipdrive.BlipdriveBlockEntity;
 import org.valkyrienskies.vscreate.content.contraptions.propellor.PropellorBearingBlockEntity;
 import org.valkyrienskies.vscreate.content.contraptions.propellor.PropellorBearingRenderer;
 
@@ -18,6 +19,13 @@ public class VSCreateBlockEntities {
 //            .instance(() -> BearingInstance::new)
             .validBlocks(VSCreateBlocks.PROPELLOR_BEARING)
             .renderer(() -> PropellorBearingRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<BlipdriveBlockEntity> BLIPDRIVE = REGISTRATE
+            .tileEntity("blipdrive", BlipdriveBlockEntity::new)
+//            .instance(() -> BearingInstance::new)
+            .validBlocks(VSCreateBlocks.BLIPDRIVE)
+            //.renderer(() -> PropellorBearingRenderer::new)
             .register();
 
     public static void register() {
