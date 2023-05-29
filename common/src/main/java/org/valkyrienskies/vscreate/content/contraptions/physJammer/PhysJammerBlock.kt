@@ -1,4 +1,4 @@
-package org.valkyrienskies.vscreate.content.contraptions.blipdrive
+package org.valkyrienskies.vscreate.content.contraptions.physJammer
 
 import com.simibubi.create.content.contraptions.components.structureMovement.bearing.BearingBlock
 import net.minecraft.core.BlockPos
@@ -11,10 +11,7 @@ import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.BlockHitResult
 
-class BlipdriveBlock(properties: Properties?) : BearingBlock(properties) {
-
-    //bain dang moent
-
+class PhysJammerBlock(properties: Properties?) : BearingBlock(properties) {
     override fun hasShaftTowards(world: LevelReader, pos: BlockPos, state: BlockState, face: Direction): Boolean {
         return face == state.getValue(FACING).opposite
     }
@@ -30,11 +27,11 @@ class BlipdriveBlock(properties: Properties?) : BearingBlock(properties) {
         if (player.getItemInHand(handIn)
                         .isEmpty) {
             if (!worldIn.isClientSide) {
-                    // warp moment
-                    println("Imagine we teleported")
-                }
-            return InteractionResult.SUCCESS
+                // jammer moment
+                println("Imagine we jammed out")
             }
+            return InteractionResult.SUCCESS
+        }
         return InteractionResult.PASS
     }
 

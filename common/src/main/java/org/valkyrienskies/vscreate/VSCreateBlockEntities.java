@@ -5,7 +5,7 @@ import com.simibubi.create.content.contraptions.base.KineticTileEntity;
 import com.simibubi.create.content.contraptions.relays.encased.ShaftInstance;
 import com.simibubi.create.content.contraptions.relays.encased.ShaftRenderer;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
-import org.valkyrienskies.vscreate.content.blipdrive.BlipdriveBlockEntity;
+import org.valkyrienskies.vscreate.content.contraptions.blipdrive.BlipdriveBlockEntity;
 import org.valkyrienskies.vscreate.content.contraptions.propellor.PropellorBearingBlockEntity;
 import org.valkyrienskies.vscreate.content.contraptions.propellor.PropellorBearingRenderer;
 

@@ -1,4 +1,4 @@
-package org.valkyrienskies.vscreate.content.blipdrive;
+package org.valkyrienskies.vscreate.content.contraptions.blipdrive;
 
 import com.simibubi.create.content.contraptions.base.KineticTileEntity;
 import net.minecraft.core.BlockPos;
@@ -13,6 +13,7 @@ import org.valkyrienskies.core.apigame.ShipTeleportData;
 import org.valkyrienskies.mod.common.command.VSCommands;
 import org.valkyrienskies.core.impl.game.VSCoreCommandsImpl;
 import org.valkyrienskies.core.apigame.world.ServerShipWorldCore;
+
 
 import java.util.ArrayList;
 
