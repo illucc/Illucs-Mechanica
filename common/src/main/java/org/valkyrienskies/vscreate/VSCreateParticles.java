@@ -11,6 +11,7 @@ import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.BuiltinRegistries;
 import org.valkyrienskies.vscreate.particles.PhysjammingParticle.PhysjammingParticle;

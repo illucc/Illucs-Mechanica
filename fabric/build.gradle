@@ -68,7 +68,7 @@ dependencies {
     modLocalRuntime("curse.maven:lithium-360438:4143613")
     modLocalRuntime("curse.maven:dynamic-fps-335493:3606973")
     modLocalRuntime("curse.maven:smooth-boot-415758:3692365")
-    modLocalRuntime("maven.modrinth:sodium:mc1.18.2-0.4.1")
+    //modLocalRuntime("maven.modrinth:sodium:mc1.18.2-0.4.1")
     modLocalRuntime("com.moandjiezana.toml:toml4j:0.7.2")
 
     // Recipe Viewers - Create Fabric supports JEI, REI, and EMI.
