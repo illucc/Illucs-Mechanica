@@ -53,29 +53,44 @@ class BlipdriveBlock(properties: Properties?) : BearingBlock(properties) {
                 worldIn as ServerLevel
                 val shipWorld = worldIn.shipObjectWorld
 
-
-                val shiop = shipWorld.allShips.first()
-                val power = 250
-                val positioner = shiop.toWorldCoordinates(Vec3(shiop.transform.positionInShip.x + power * cos(shiop.transform.shipToWorldRotation.y() * (Math.PI * 2) / 360.0), shiop.transform.positionInShip.y + 10.00, shiop.transform.positionInShip.z + power * sin(shiop.transform.shipToWorldRotation.y() * (Math.PI * 2) / 360.0))) //Vec3(1.00, 1.00, 1.00)
-                val rotationer =  shiop.transform.shipToWorldRotation
-                val tpdata: ShipTeleportData = ShipTeleportDataImpl(newPos = positioner.toJOML(), newRot = rotationer)
-
-
-                worldIn.playSound(
-                        null, // Player - if non-null, will play sound for every nearby player *except* the specified player
-                        pos, // The position of where the sound will come from
-                        SoundEvents.BEACON_ACTIVATE, // The sound that will play, in this case, the sound the anvil plays when it lands.
-                        SoundSource.BLOCKS, // This determines which of the volume sliders affect this sound
-                        5f, //Volume multiplier, 1 is normal, 0.5 is half volume, etc
-                        0.3f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
-                );
-
-                worldIn.addParticle(ParticleTypes.HEART, positioner.x, positioner.y, positioner.z, 0.00, 0.00, 0.00)
-                println(shiop.transform.shipToWorldRotation.y())
-                println(positioner)
+                val positon = Vec3(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
+                val shiop = worldIn.getShipManagingPos(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
+                println(positon)
+                if (shiop != null) {
+                    val power = 250
+                    val positioner = shiop.toWorldCoordinates(Vec3(shiop.transform.positionInShip.x + power * cos(shiop.transform.shipToWorldRotation.y() * (Math.PI * 2) / 360.0), shiop.transform.positionInShip.y + 10.00, shiop.transform.positionInShip.z + power * sin(shiop.transform.shipToWorldRotation.y() * (Math.PI * 2) / 360.0))) //Vec3(1.00, 1.00, 1.00)
+                    val rotationer =  shiop.transform.shipToWorldRotation
+                    val tpdata: ShipTeleportData = ShipTeleportDataImpl(newPos = positioner.toJOML(), newRot = rotationer)
 
 
-                shipWorld.teleportShip(shiop, tpdata)
+                    worldIn.playSound(
+                            null, // Player - if non-null, will play sound for every nearby player *except* the specified player
+                            pos, // The position of where the sound will come from
+                            SoundEvents.BEACON_POWER_SELECT, // The sound that will play, in this case, the sound the anvil plays when it lands.
+                            SoundSource.BLOCKS, // This determines which of the volume sliders affect this sound
+                            10f, //Volume multiplier, 1 is normal, 0.5 is half volume, etc
+                            0.3f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
+                    );
+
+                    worldIn.addParticle(ParticleTypes.HEART, positioner.x, positioner.y, positioner.z, 0.00, 0.00, 0.00)
+                    println(shiop.transform.shipToWorldRotation.y())
+                    println(positioner)
+
+
+                    shipWorld.teleportShip(shiop, tpdata)
+                } else{
+                    worldIn.playSound(
+                            null, // Player - if non-null, will play sound for every nearby player *except* the specified player
+                            pos, // The position of where the sound will come from
+                            SoundEvents.BEACON_DEACTIVATE, // The sound that will play, in this case, the sound the anvil plays when it lands.
+                            SoundSource.BLOCKS, // This determines which of the volume sliders affect this sound
+                            5f, //Volume multiplier, 1 is normal, 0.5 is half volume, etc
+                            1f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
+                    );
+
+                }
+                //val shiop = shipWorld.allShips.first()
+
             }
             return InteractionResult.SUCCESS
             }
