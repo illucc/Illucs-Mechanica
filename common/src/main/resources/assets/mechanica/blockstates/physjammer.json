@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "mechanica:block/physjammer",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "mechanica:block/physjammer"
+    },
+    "facing=north": {
+      "model": "mechanica:block/physjammer"
+    },
+    "facing=south": {
+      "model": "mechanica:block/physjammer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mechanica:block/physjammer",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "mechanica:block/physjammer",
+      "y": 90
+    }
+  }
+}

@@ -1,17 +1,13 @@
 {
   "schemaVersion": 1,
-  "id": "vscreate",
+  "id": "mechanica",
   "version": "${version}",
-  "name": "Create x Valkyrien Skies Template",
-  "description": "Create VS addon template",
+  "name": "Mechanica",
+  "description": "VS Clockwork Addon",
   "authors": [
-    "fluffy",
-    "potato"
+    "illuc"
   ],
   "contributors": [
-    "ewoudje",
-    "triode",
-    "rubydesic"
   ],
   "contact": {
     "homepage": "https://valkyrienskies.org/",
@@ -22,21 +18,21 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "org.valkyrienskies.vscreate.fabric.VSCreateModFabric"
+      "org.valkyrienskies.mechanica.fabric.VSCreateModFabric"
     ],
     "client": [
-      "org.valkyrienskies.vscreate.fabric.VSCreateModFabric${'$'}Client"
+      "org.valkyrienskies.mechanica.fabric.VSCreateModFabric${'$'}Client"
     ],
     "preLaunch": [
-      "org.valkyrienskies.vscreate.fabric.ValkyrienPreLaunch"
+      "org.valkyrienskies.mechanica.fabric.ValkyrienPreLaunch"
     ],
     "modmenu": [
-      "org.valkyrienskies.vscreate.fabric.VSCreateModFabric${'$'}ModMenu"
+      "org.valkyrienskies.mechanica.fabric.VSCreateModFabric${'$'}ModMenu"
     ]
   },
   "mixins": [
-    "vscreate-common.mixins.json",
-    "vscreate.mixins.json"
+    "mechanica-common.mixins.json",
+    "mechanica.mixins.json"
   ],
   "depends": {
     "minecraft": ">=1.18.2",
