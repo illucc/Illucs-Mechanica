@@ -1,6 +1,8 @@
 package org.valkyrienskies.vscreate.content.contraptions.blipdrive
 
+import com.mojang.math.Quaternion
 import com.simibubi.create.content.contraptions.components.structureMovement.bearing.BearingBlock
+import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.network.chat.TranslatableComponent
@@ -19,8 +21,17 @@ import org.valkyrienskies.mod.common.util.toJOML
 import org.valkyrienskies.mod.common.vsCore
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerLevel
+import org.joml.Vector3d
+import org.valkyrienskies.core.api.ships.ServerShip
+import org.valkyrienskies.core.api.ships.Ship
+import org.valkyrienskies.core.impl.api.LoadedServerShipInternal
+import org.valkyrienskies.core.impl.game.ships.ShipData
+import org.valkyrienskies.core.impl.util.x
+import org.valkyrienskies.mod.common.allShips
 import org.valkyrienskies.mod.common.shipObjectWorld
 import org.valkyrienskies.mod.common.shipWorldNullable
+import org.valkyrienskies.mod.common.util.settings
+import org.valkyrienskies.mod.common.util.toJOMLD
 
 class BlipdriveBlock(properties: Properties?) : BearingBlock(properties) {
 
@@ -34,6 +45,7 @@ class BlipdriveBlock(properties: Properties?) : BearingBlock(properties) {
         return state.getValue(FACING).axis
     }
 
+
     //god forgive me
     override fun use(state: BlockState?, worldIn: Level, pos: BlockPos?, player: Player, handIn: InteractionHand?,
                      hit: BlockHitResult?): InteractionResult? {
@@ -42,19 +54,22 @@ class BlipdriveBlock(properties: Properties?) : BearingBlock(properties) {
         if (player.getItemInHand(handIn)
                         .isEmpty) {
             if (!worldIn.isClientSide) {
+
+
                 // warp moment
                 println("blippin")
                 worldIn as ServerLevel
-                val shipWorld = worldIn.server.shipObjectWorld
-
+                val shipWorld = worldIn.shipObjectWorld
                 val shiop = shipWorld.allShips.first()
-                val position = Vec3(10.00, 10.00, 10.00)
-                val shipTeleportData: ShipTeleportData = ShipTeleportDataImpl(newPos = position.toJOML())
+                val positioner = Vec3(1.00, 1.00, 1.00)
+                val tpdata: ShipTeleportData = ShipTeleportDataImpl(newPos = positioner.toJOML()) //newVel = positioner.toJOML()
 
+                //h triode said something in the #dev chat, check that out
+                //yep he'll change something in the code, guess I gotta wait, but blipdrive moment is fast approaching
+                shipWorld.teleportShip(shiop, tpdata)//tpdata)
 
-                //h
-                shipWorld.teleportShip(shiop, shipTeleportData)
-
+                //shipWorld.deleteShip(shiop)
+                //shiop.
             }
             return InteractionResult.SUCCESS
             }
