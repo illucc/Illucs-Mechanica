@@ -1,11 +1,13 @@
 package org.valkyrienskies.vscreate.content.contraptions.blipdrive
 
-import com.mojang.math.Quaternion
 import com.simibubi.create.content.contraptions.components.structureMovement.bearing.BearingBlock
-import net.minecraft.commands.arguments.EntityArgument
+import kotlinx.coroutines.delay
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.network.chat.TranslatableComponent
+import net.minecraft.core.particles.ParticleTypes
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
@@ -14,40 +16,30 @@ import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.Vec3
-import org.valkyrienskies.core.api.world.ServerShipWorld
+import org.checkerframework.checker.signedness.SignednessUtil.toDouble
 import org.valkyrienskies.core.apigame.ShipTeleportData
 import org.valkyrienskies.core.impl.game.ShipTeleportDataImpl
-import org.valkyrienskies.mod.common.util.toJOML
-import org.valkyrienskies.mod.common.vsCore
-import net.minecraft.server.MinecraftServer
-import net.minecraft.server.level.ServerLevel
-import org.joml.Vector3d
-import org.valkyrienskies.core.api.ships.ServerShip
-import org.valkyrienskies.core.api.ships.Ship
-import org.valkyrienskies.core.impl.api.LoadedServerShipInternal
+import org.valkyrienskies.core.impl.game.ships.ShipObject
 import org.valkyrienskies.core.impl.game.ships.ShipData
 import org.valkyrienskies.core.impl.util.x
-import org.valkyrienskies.mod.common.allShips
-import org.valkyrienskies.mod.common.shipObjectWorld
-import org.valkyrienskies.mod.common.shipWorldNullable
+import org.valkyrienskies.core.impl.util.y
+import org.valkyrienskies.core.impl.util.z
+import org.valkyrienskies.mod.common.*
 import org.valkyrienskies.mod.common.util.settings
-import org.valkyrienskies.mod.common.util.toJOMLD
+import org.valkyrienskies.mod.common.util.toJOML
+import org.valkyrienskies.vscreate.content.contraptions.propellor.PropellorBearingBlockEntity
+import java.util.function.Consumer
+import kotlin.math.cos
+import kotlin.math.sin
+
 
 class BlipdriveBlock(properties: Properties?) : BearingBlock(properties) {
 
     //bain dang moent
 
-    override fun hasShaftTowards(world: LevelReader, pos: BlockPos, state: BlockState, face: Direction): Boolean {
-        return face == state.getValue(FACING).opposite
-    }
-
-    override fun getRotationAxis(state: BlockState): Direction.Axis {
-        return state.getValue(FACING).axis
-    }
-
 
     //god forgive me
-    override fun use(state: BlockState?, worldIn: Level, pos: BlockPos?, player: Player, handIn: InteractionHand?,
+    override fun use(state: BlockState?, worldIn: Level, pos: BlockPos, player: Player, handIn: InteractionHand?,
                      hit: BlockHitResult?): InteractionResult? {
         if (!player.mayBuild()) return InteractionResult.FAIL
         if (player.isShiftKeyDown) return InteractionResult.FAIL
@@ -60,16 +52,30 @@ class BlipdriveBlock(properties: Properties?) : BearingBlock(properties) {
                 println("blippin")
                 worldIn as ServerLevel
                 val shipWorld = worldIn.shipObjectWorld
+
+
                 val shiop = shipWorld.allShips.first()
-                val positioner = Vec3(1.00, 1.00, 1.00)
-                val tpdata: ShipTeleportData = ShipTeleportDataImpl(newPos = positioner.toJOML()) //newVel = positioner.toJOML()
+                val power = 250
+                val positioner = shiop.toWorldCoordinates(Vec3(shiop.transform.positionInShip.x + power * cos(shiop.transform.shipToWorldRotation.y() * (Math.PI * 2) / 360.0), shiop.transform.positionInShip.y + 10.00, shiop.transform.positionInShip.z + power * sin(shiop.transform.shipToWorldRotation.y() * (Math.PI * 2) / 360.0))) //Vec3(1.00, 1.00, 1.00)
+                val rotationer =  shiop.transform.shipToWorldRotation
+                val tpdata: ShipTeleportData = ShipTeleportDataImpl(newPos = positioner.toJOML(), newRot = rotationer)
 
-                //h triode said something in the #dev chat, check that out
-                //yep he'll change something in the code, guess I gotta wait, but blipdrive moment is fast approaching
-                shipWorld.teleportShip(shiop, tpdata)//tpdata)
 
-                //shipWorld.deleteShip(shiop)
-                //shiop.
+                worldIn.playSound(
+                        null, // Player - if non-null, will play sound for every nearby player *except* the specified player
+                        pos, // The position of where the sound will come from
+                        SoundEvents.BEACON_ACTIVATE, // The sound that will play, in this case, the sound the anvil plays when it lands.
+                        SoundSource.BLOCKS, // This determines which of the volume sliders affect this sound
+                        5f, //Volume multiplier, 1 is normal, 0.5 is half volume, etc
+                        0.3f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
+                );
+
+                worldIn.addParticle(ParticleTypes.HEART, positioner.x, positioner.y, positioner.z, 0.00, 0.00, 0.00)
+                println(shiop.transform.shipToWorldRotation.y())
+                println(positioner)
+
+
+                shipWorld.teleportShip(shiop, tpdata)
             }
             return InteractionResult.SUCCESS
             }
