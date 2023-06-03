@@ -16,6 +16,10 @@ import net.minecraft.world.phys.BlockHitResult
 import org.valkyrienskies.core.impl.game.ships.ShipData
 import org.valkyrienskies.mod.common.getShipManagingPos
 
+
+//!!!!!!!!!!!!!!!!!!!!!! USE THE FOUR SUNS BLIMP SCHEM FOR SHOWCASE AND CREDIT WiversRivers#0796
+
+
 class PhysJammerBlock(properties: Properties?) : BearingBlock(properties) {
     override fun hasShaftTowards(world: LevelReader, pos: BlockPos, state: BlockState, face: Direction): Boolean {
         return face == state.getValue(FACING).opposite

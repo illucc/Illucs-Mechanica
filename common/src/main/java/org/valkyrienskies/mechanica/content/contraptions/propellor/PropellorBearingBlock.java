@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.utility.Couple;
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -77,6 +78,7 @@ public class PropellorBearingBlock extends BearingBlock implements ITE<Propellor
     @Override
     public boolean hasShaftTowards(LevelReader world, BlockPos pos, BlockState state, net.minecraft.core.Direction face) {
         return face == state.getValue(FACING).getOpposite();
+
     }
     @Override
     public net.minecraft.core.Direction.Axis getRotationAxis(BlockState state) {

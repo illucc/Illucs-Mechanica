@@ -104,7 +104,8 @@ class BlipdriveBlock(properties: Properties?) : DirectionalKineticBlock(properti
 
 
     override fun hasShaftTowards(world: LevelReader?, pos: BlockPos?, state: BlockState, face: Direction): Boolean {
-        return face == state.getValue(FACING).opposite
+        //return face == state.getValue(FACING).opposite
+        return face == net.minecraft.core.Direction.DOWN
     }
     override fun getRotationAxis(state: BlockState?): Direction.Axis {
         if (state != null) {
