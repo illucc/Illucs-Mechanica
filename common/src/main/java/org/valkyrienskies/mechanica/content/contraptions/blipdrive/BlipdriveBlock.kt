@@ -1,7 +1,9 @@
 package org.valkyrienskies.mechanica.content.contraptions.blipdrive
 
-import com.simibubi.create.content.contraptions.components.structureMovement.bearing.BearingBlock
+import com.simibubi.create.content.contraptions.base.DirectionalKineticBlock
+import com.simibubi.create.foundation.block.ITE
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
@@ -10,6 +12,8 @@ import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.LevelReader
+import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.Vec3
@@ -18,16 +22,20 @@ import org.valkyrienskies.core.impl.game.ShipTeleportDataImpl
 import org.valkyrienskies.core.impl.util.x
 import org.valkyrienskies.core.impl.util.y
 import org.valkyrienskies.core.impl.util.z
-import org.valkyrienskies.mod.common.*
+import org.valkyrienskies.mechanica.MechanicaBlockEntities
+import org.valkyrienskies.mechanica.content.contraptions.propellor.PropellorBearingBlockEntity
+import org.valkyrienskies.mod.common.getShipManagingPos
+import org.valkyrienskies.mod.common.shipObjectWorld
+import org.valkyrienskies.mod.common.toWorldCoordinates
 import org.valkyrienskies.mod.common.util.toJOML
+import java.util.function.Consumer
 import kotlin.math.cos
 import kotlin.math.sin
 
 
-class BlipdriveBlock(properties: Properties?) : BearingBlock(properties) {
+class BlipdriveBlock(properties: Properties?) : DirectionalKineticBlock(properties), ITE<BlipdriveBlockEntity> {
 
     //bain dang moent
-
 
 
     //god forgive me
@@ -38,9 +46,15 @@ class BlipdriveBlock(properties: Properties?) : BearingBlock(properties) {
         if (player.getItemInHand(handIn)
                         .isEmpty) {
             if (!worldIn.isClientSide) {
+                withTileEntityDo(worldIn, pos, Consumer<BlipdriveBlockEntity> { te: BlipdriveBlockEntity ->
+                    if (te.charge >= 20) {
+                        te.warp()
+                        te.charge = 0f
+                    }
+                })
 
 
-                // warp moment
+                /*// warp moment
                 println("blippin")
                 worldIn as ServerLevel
                 val shipWorld = worldIn.shipObjectWorld
@@ -80,11 +94,36 @@ class BlipdriveBlock(properties: Properties?) : BearingBlock(properties) {
 
                 }
                 //val shiop = shipWorld.allShips.first()
-
+                */
             }
             return InteractionResult.SUCCESS
             }
         return InteractionResult.PASS
+    }
+
+
+
+    override fun hasShaftTowards(world: LevelReader?, pos: BlockPos?, state: BlockState, face: Direction): Boolean {
+        return face == state.getValue(FACING).opposite
+    }
+    override fun getRotationAxis(state: BlockState?): Direction.Axis {
+        if (state != null) {
+            return state.getValue(FACING).axis
+        }
+        return Direction.NORTH.axis
+    }
+
+    override fun getTileEntityClass(): Class<BlipdriveBlockEntity> {
+        return BlipdriveBlockEntity::class.java
+
+        //TODO("Not yet implemented")
+    }
+
+    override fun getTileEntityType(): BlockEntityType<out BlipdriveBlockEntity> {
+        return MechanicaBlockEntities.BLIPDRIVE.get();
+
+
+        //TODO("Not yet implemented")
     }
 
 }

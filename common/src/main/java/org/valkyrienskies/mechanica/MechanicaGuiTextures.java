@@ -10,7 +10,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.resources.ResourceLocation;
 
-public enum VSCreateGuiTextures implements ScreenElement {
+public enum MechanicaGuiTextures implements ScreenElement {
     COMMAND_SEAT("command_seat", 173, 159);
     public static final int FONT_COLOR = 0x575F7A;
 
@@ -18,19 +18,19 @@ public enum VSCreateGuiTextures implements ScreenElement {
     public int width, height;
     public int startX, startY;
 
-    VSCreateGuiTextures(String location, int width, int height) {
+    MechanicaGuiTextures(String location, int width, int height) {
         this(location, 0, 0, width, height);
     }
 
-    VSCreateGuiTextures(int startX, int startY) {
+    MechanicaGuiTextures(int startX, int startY) {
         this("icons", startX * 16, startY * 16, 16, 16);
     }
 
-    VSCreateGuiTextures(String location, int startX, int startY, int width, int height) {
+    MechanicaGuiTextures(String location, int startX, int startY, int width, int height) {
         this(MechanicaMod.MOD_ID, location, startX, startY, width, height);
     }
 
-    VSCreateGuiTextures(String namespace, String location, int startX, int startY, int width, int height) {
+    MechanicaGuiTextures(String namespace, String location, int startX, int startY, int width, int height) {
         this.location = new ResourceLocation(namespace, "textures/gui/" + location + ".png");
         this.width = width;
         this.height = height;

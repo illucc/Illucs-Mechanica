@@ -3,7 +3,7 @@ package org.valkyrienskies.mechanica;
 import com.jozufozu.flywheel.core.PartialModel;
 
 
-public class VSCreatePartials {
+public class MechanicaPartials {
 //    public static final PartialModel
 //
 //    ;

@@ -2,6 +2,7 @@ package org.valkyrienskies.mechanica;
 
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.AllSections;
+import com.simibubi.create.foundation.block.BlockStressDefaults;
 import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import me.alphamode.forgetags.Tags;
@@ -38,9 +39,13 @@ public class MechanicaBlocks {
                     .register();
     public static final BlockEntry<BlipdriveBlock> BLIPDRIVE =
             REGISTRATE.block("blipdrive", BlipdriveBlock::new)
+                    .initialProperties(SharedProperties::stone)
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
                     .properties(p -> p.color(MaterialColor.PODZOL))
-                    .transform(BuilderTransformers.bearing("blipdrive", "gearbox", false))
-                    .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .transform(axeOrPickaxe())
+                    .transform(BlockStressDefaults.setImpact(2.0))
+                    .item()
+                    .transform(customItemModel())
                     .register();
 
     public static final BlockEntry<PhysJammerBlock> PHYSJAMMER =

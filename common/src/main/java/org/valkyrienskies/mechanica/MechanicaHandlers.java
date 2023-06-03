@@ -1,6 +1,6 @@
 package org.valkyrienskies.mechanica;
 
-public class VSCreateHandlers {
+public class MechanicaHandlers {
 
 //    public static final GravitronRenderHandler GRAVITRON_HANDLER = new GravitronRenderHandler();
 //    public static final BluperGlueSelectionHandler BLUPER_HANDLER = new BluperGlueSelectionHandler();

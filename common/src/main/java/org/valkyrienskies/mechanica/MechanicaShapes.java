@@ -12,7 +12,7 @@ import java.util.function.BiFunction;
 
 import static net.minecraft.core.Direction.UP;
 
-public class VSCreateShapes {
+public class MechanicaShapes {
 
     public static final VoxelShaper
 

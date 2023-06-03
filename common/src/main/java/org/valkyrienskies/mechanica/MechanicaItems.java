@@ -6,7 +6,7 @@ import net.minecraft.world.item.Item;
 import static com.simibubi.create.content.AllSections.MATERIALS;
 import static org.valkyrienskies.mechanica.MechanicaMod.REGISTRATE;
 
-public class VSCreateItems {
+public class MechanicaItems {
 
 
 

@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class VSCreateSounds {
+public class MechanicaSounds {
     public static final Map<ResourceLocation, SoundEntry> ALL = new HashMap<>();
     public static final SoundEntry
     SUPERSONIC = create("supersonic").subtitle("Supersonic")

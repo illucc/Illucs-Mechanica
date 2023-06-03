@@ -3,7 +3,7 @@
   "id": "mechanica",
   "version": "${version}",
   "name": "Mechanica",
-  "description": "VS Clockwork Addon",
+  "description": "A content addon for Clockwork",
   "authors": [
     "illuc"
   ],
@@ -14,7 +14,7 @@
     "sources": "https://github.com/ValkyrienSkies/VSCreate"
   },
   "license": "Apache-2.0",
-  "icon": "assets/vscreate/icon.png",
+  "icon": "assets/mechanica/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

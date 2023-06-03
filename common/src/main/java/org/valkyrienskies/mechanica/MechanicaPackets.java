@@ -12,12 +12,12 @@ import org.valkyrienskies.mechanica.platform.api.network.S2CCWPacket;
 
 import java.util.function.Function;
 
-public enum VSCreatePackets {
+public enum MechanicaPackets {
 
     // Client to Server
     ;
 
-    <T extends VSCPacket> VSCreatePackets(Class<T> type, Function<FriendlyByteBuf, T> factory) {
+    <T extends VSCPacket> MechanicaPackets(Class<T> type, Function<FriendlyByteBuf, T> factory) {
         SharedValues.getPacketChannel().registerPacket(type, factory);
     }
 

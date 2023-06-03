@@ -45,7 +45,7 @@ public class VSCreateModForge {
 
         // ForgeClockWorkTags.init();
 
-        VSCreateItems.register();
+        MechanicaItems.register();
         VSCreateForgeItems.register();
 
         MechanicaBlockEntities.register();
@@ -59,11 +59,11 @@ public class VSCreateModForge {
 
         VSCreateForgeParticles.init(modEventBus);
 
-        VSCreateSounds.register();
+        MechanicaSounds.register();
         // TODO forge sounds
 
         MechanicaMod.init();
-        VSCreatePackets.init();
+        MechanicaPackets.init();
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             FMLJavaModLoadingContext.get()
@@ -71,7 +71,7 @@ public class VSCreateModForge {
 
             // In create itself they do it FMLClientSetupEvent this does not work (what a scam)
             // It prob gets staticly loaded earlier and well yhea...
-            VSCreatePartials.init();
+            MechanicaPartials.init();
             modEventBus.addListener(AllParticleTypes::registerFactories);
             // TODO forge partials
 

@@ -38,7 +38,7 @@ public class VSCreateModFabric implements ModInitializer {
         VSCreateFabricBlocks.register();
 
         // TODO common items
-        VSCreateItems.register();
+        MechanicaItems.register();
         VSCreateFabricItems.register();
 
         MechanicaBlockEntities.register();
@@ -51,7 +51,7 @@ public class VSCreateModFabric implements ModInitializer {
         MechanicaFluids.register();
         VSCreateFabricFluids.register();
 
-        VSCreateSounds.register();
+        MechanicaSounds.register();
         VSCreateFabricSounds.prepare();
 
         MechanicaMod.REGISTRATE.register();
@@ -69,7 +69,7 @@ public class VSCreateModFabric implements ModInitializer {
         public void onInitializeClient() {
             MechanicaMod.initClient();
 
-            VSCreatePartials.init();
+            MechanicaPartials.init();
             VSCreateFabricPartials.init();
 
             MechanicaParticles.initClient();

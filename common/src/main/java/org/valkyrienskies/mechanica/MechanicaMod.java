@@ -26,7 +26,7 @@ public class MechanicaMod {
 
     public static void init() {
         MechanicaContraptions.init();
-        VSCreatePackets.init();
+        MechanicaPackets.init();
     }
 
     public static void initClient() {

@@ -3,6 +3,8 @@ package org.valkyrienskies.mechanica;
 
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import org.valkyrienskies.mechanica.content.contraptions.blipdrive.BlipdriveBlockEntity;
+
+import org.valkyrienskies.mechanica.content.contraptions.blipdrive.BlipdriveRenderer;
 import org.valkyrienskies.mechanica.content.contraptions.propellor.PropellorBearingBlockEntity;
 import org.valkyrienskies.mechanica.content.contraptions.propellor.PropellorBearingRenderer;
 
@@ -20,9 +22,8 @@ public class MechanicaBlockEntities {
 
     public static final BlockEntityEntry<BlipdriveBlockEntity> BLIPDRIVE = REGISTRATE
             .tileEntity("blipdrive", BlipdriveBlockEntity::new)
-//            .instance(() -> BearingInstance::new)
             .validBlocks(MechanicaBlocks.BLIPDRIVE)
-            //.renderer(() -> PropellorBearingRenderer::new)
+            .renderer(() -> BlipdriveRenderer::new)
             .register();
 
     public static void register() {
