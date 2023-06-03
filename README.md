@@ -1,4 +1,4 @@
-![Logo-Recovered](placeholder.png)
+![Logo-Recovered](mechanica.png)
 
 # Illuc's Mechanica
 
