@@ -5,6 +5,9 @@
 Funky extra stuff for Clockwork, mainly made for learning mod development.
 Revolves around bullying physics core into doing illegal physics stuff.
 
+trello page:
+https://trello.com/b/GPxB5z7q/mechanica
+
 # NB
 
 I will not be responsible for:
