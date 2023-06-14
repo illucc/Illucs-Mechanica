@@ -4,37 +4,37 @@ issueTrackerURL = "https://github.com/ValkyrienSkies/Valkyrien-Skies-2/issues"
 license = "Apache-2.0"
 
 [[mods]]
-modId = "vscreate"
+modId = "mechanica"
 version = "${version}"
-displayName = "Create x Valkyrien Skies Template"
-authors = ["fluffy", "potato", "ewoudje"]
+displayName = "Mechanica"
+authors = ["illuc"]
 description = '''
-A template mod for Create x Valkyrien Skies mods.
+A Clockwork addon.
 '''
 logoFile = "icon.png"
 
-[[dependencies.vscreate]]
+[[dependencies.mechanica]]
 modId = "forge"
 mandatory = true
 versionRange = "[${forge_version},)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.vscreate]]
+[[dependencies.mechanica]]
 modId = "minecraft"
 mandatory = true
 versionRange = "${minecraft_version}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.vscreate]]
+[[dependencies.mechanica]]
 modId = "valkyrienskies"
 mandatory = true
 versionRange = "[2,)"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.vscreate]]
+[[dependencies.mechanica]]
 modId = "create"
 mandatory = true
 versionRange = "${create_version}"

@@ -1,7 +1,9 @@
 package org.valkyrienskies.mechanica;
 
+import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.AllSections;
+import com.simibubi.create.content.contraptions.base.CasingBlock;
 import com.simibubi.create.foundation.block.BlockStressDefaults;
 import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -9,6 +11,7 @@ import me.alphamode.forgetags.Tags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MaterialColor;
+import org.valkyrienskies.mechanica.content.contraptions.doodad.DoodadBlock;
 import org.valkyrienskies.mechanica.content.contraptions.physJammer.PhysJammerBlock;
 import org.valkyrienskies.mechanica.content.contraptions.propellor.PropellorBearingBlock;
 import org.valkyrienskies.mechanica.content.contraptions.blipdrive.BlipdriveBlock;
@@ -43,7 +46,7 @@ public class MechanicaBlocks {
                     .blockstate(BlockStateGen.directionalBlockProvider(true))
                     .properties(p -> p.color(MaterialColor.PODZOL))
                     .transform(axeOrPickaxe())
-                    .transform(BlockStressDefaults.setImpact(2.0))
+                    .transform(BlockStressDefaults.setImpact(64.0))
                     .item()
                     .transform(customItemModel())
                     .register();
@@ -76,6 +79,20 @@ public class MechanicaBlocks {
             .build()
             .lang("Block of Damp Gold")
             .register();
+
+    public static final BlockEntry<CasingBlock> DAMP_CASING = REGISTRATE.block("damp_casing", CasingBlock::new)
+            .properties(p -> p.color(MaterialColor.PODZOL))
+            .transform(BuilderTransformers.casing(() -> AllSpriteShifts.ANDESITE_CASING))
+            .register();
+
+    public static final BlockEntry<DoodadBlock> DOODAD = REGISTRATE.block("doodad", DoodadBlock::new)
+            .properties(p -> p.color(MaterialColor.PODZOL))
+            .item()
+            .transform(customItemModel())
+            .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+            .register();
+
+
 
 
     public static void register() {

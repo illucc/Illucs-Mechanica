@@ -33,13 +33,13 @@ class BlipdriveBlockEntity(type: BlockEntityType<*>?, pos: BlockPos?, state: Blo
 
         if (charge <= 19){
             val targetSpeed = getSpeed()
-            if (targetSpeed > 64){
+            if (targetSpeed >= 64){
                 tickCount++
-                println(tickCount)
+                //println(tickCount)
                 if (tickCount >= 20) {
                     tickCount = 0
                     charge++
-                    println(charge)
+                    //println(charge)
                     if (charge == 20f) {
                         level?.playSound(
                                 null, // Player - if non-null, will play sound for every nearby player *except* the specified player
