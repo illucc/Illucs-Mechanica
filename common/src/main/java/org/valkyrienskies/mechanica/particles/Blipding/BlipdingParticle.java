@@ -28,19 +28,19 @@ public class BlipdingParticle extends CustomRotationParticle {
     protected int endTicks;
     protected int numLoops;
 
-    protected int firstStartFrame = 0;
-    protected int startFrames = 1;
+    protected int firstStartFrame = 1;
+    protected int startFrames = 6;
 
-    protected int firstLoopFrame = 0;
-    protected int loopFrames = 1;
+    protected int firstLoopFrame = 1;
+    protected int loopFrames = 6;
 
-    protected int firstEndFrame = 0;
-    protected int endFrames = 1;
+    protected int firstEndFrame = 1;
+    protected int endFrames = 6;
 
     protected AnimationStage animationStage;
 
-    protected int totalFrames = 1;
-    protected int ticksPerFrame = 60;
+    protected int totalFrames = 6;
+    protected int ticksPerFrame = 20;
 
     protected boolean isPerimeter = false;
     protected boolean isExpandingPerimeter = false;
@@ -51,7 +51,7 @@ public class BlipdingParticle extends CustomRotationParticle {
                         SpriteSet spriteSet, ParticleOptions data) {
         super(worldIn, x, y, z, spriteSet, 0);
         this.animatedSprite = spriteSet;
-        this.quadSize = 1f;
+        this.quadSize = 5f;
         this.setSize(this.quadSize, this.quadSize);
 
         //this.loopLength = loopFrames + (int) (this.random.nextFloat() * 5f - 4f);
@@ -59,10 +59,10 @@ public class BlipdingParticle extends CustomRotationParticle {
         //this.endTicks = endFrames + (int) (this.random.nextFloat() * 5f - 4f);
         //this.numLoops = (int) (1f + this.random.nextFloat() * 2f);
 
-        this.loopLength = 60;
-        this.startTicks = 20;
-        this.endTicks = 20;
-        this.numLoops = 20;
+        this.loopLength = 2;
+        this.startTicks = 2;
+        this.endTicks = 2;
+        this.numLoops = 2;
 
         this.setFrame(0);
 
@@ -83,8 +83,8 @@ public class BlipdingParticle extends CustomRotationParticle {
         if (animationStage == null)
             remove();
         isVisible = true;
-        if (!isPerimeter)
-            remove();
+        //if (!isPerimeter)
+        //    remove();
     }
 
     @Override
@@ -133,9 +133,9 @@ public class BlipdingParticle extends CustomRotationParticle {
 
         public void tick() {
             ticks++;
-
-            if (ticks % particle.ticksPerFrame == 0)
-                animAge++;
+            animAge++;
+            //if (ticks % particle.ticksPerFrame == 0)
+                //animAge++;
         }
 
         public float getAnimAge() {
@@ -185,7 +185,7 @@ public class BlipdingParticle extends CustomRotationParticle {
             if (loopTick == 0)
                 loops++;
 
-            //particle.setFrame(particle.firstLoopFrame + loopTick);// (int) (((float) loopTick / (float)
+            particle.setFrame(particle.firstLoopFrame + loopTick);// (int) (((float) loopTick / (float)
             // particle.loopLength) * particle.loopFrames));
 
         }
@@ -241,7 +241,7 @@ public class BlipdingParticle extends CustomRotationParticle {
 
         @Override
         public AnimationStage getNext() {
-            if (animAge < 30)
+            if (animAge < 10)
                 return this;
             else
                 return null;

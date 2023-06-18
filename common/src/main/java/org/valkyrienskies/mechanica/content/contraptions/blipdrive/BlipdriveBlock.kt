@@ -48,8 +48,7 @@ class BlipdriveBlock(properties: Properties?) : DirectionalKineticBlock(properti
             if (!worldIn.isClientSide) {
                 withTileEntityDo(worldIn, pos, Consumer<BlipdriveBlockEntity> { te: BlipdriveBlockEntity ->
                     if (te.charge >= 20) {
-                        te.warp()
-                        te.charge = 0f
+                        te.warping = true
                     }
                 })
 

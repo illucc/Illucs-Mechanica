@@ -1,7 +1,9 @@
 package org.valkyrienskies.mechanica.content.contraptions.blipdrive
 
 import com.simibubi.create.content.contraptions.base.KineticTileEntity
+import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.core.BlockPos
+import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
@@ -16,6 +18,8 @@ import org.valkyrienskies.core.impl.game.ShipTeleportDataImpl
 import org.valkyrienskies.core.impl.util.x
 import org.valkyrienskies.core.impl.util.y
 import org.valkyrienskies.core.impl.util.z
+import org.valkyrienskies.mechanica.MechanicaParticles
+import org.valkyrienskies.mechanica.particles.Blipding.BlipdingParticle
 import org.valkyrienskies.mod.common.getShipManagingPos
 import org.valkyrienskies.mod.common.shipObjectWorld
 import org.valkyrienskies.mod.common.toWorldCoordinates
@@ -27,6 +31,8 @@ import kotlin.math.sin
 class BlipdriveBlockEntity(type: BlockEntityType<*>?, pos: BlockPos?, state: BlockState?) : KineticTileEntity(type, pos, state) {
     var charge = 0f
     var tickCount = 0
+    var warping = false
+    var shortCharge = 0f
     override fun tick() {
         super.tick()
 
@@ -51,6 +57,8 @@ class BlipdriveBlockEntity(type: BlockEntityType<*>?, pos: BlockPos?, state: Blo
                         );
 
                     } else {
+
+
                         level?.playSound(
                                 null, // Player - if non-null, will play sound for every nearby player *except* the specified player
                                 blockPos, // The position of where the sound will come from
@@ -66,10 +74,30 @@ class BlipdriveBlockEntity(type: BlockEntityType<*>?, pos: BlockPos?, state: Blo
 
                 }
             }
+        }else if (warping){
+            if (shortCharge == 0f){
+                level?.addParticle(BlipdingParticle.Data(), blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble(), 0.00, 0.00, 0.00)
+                (level as ServerLevel).playSound(
+                        null, // Player - if non-null, will play sound for every nearby player *except* the specified player
+                        blockPos, // The position of where the sound will come from
+                        SoundEvents.BEACON_POWER_SELECT, // The sound that will play, in this case, the sound the anvil plays when it lands.
+                        SoundSource.BLOCKS, // This determines which of the volume sliders affect this sound
+                        10f, //Volume multiplier, 1 is normal, 0.5 is half volume, etc
+                        0.3f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
+                );
+            }
+            shortCharge++
+            if (shortCharge > 80f){
+                warp()
+            }
         }
     }
 
     fun warp() {
+
+        //short charge
+
+
         if (!level?.isClientSide!!) {
             (level as ServerLevel)
             val shipWorld = (level as ServerLevel).shipObjectWorld
@@ -86,17 +114,11 @@ class BlipdriveBlockEntity(type: BlockEntityType<*>?, pos: BlockPos?, state: Blo
                 println(shiop.transform.shipToWorldRotation.y())
                 println(positioner)
 
-                (level as ServerLevel).playSound(
-                        null, // Player - if non-null, will play sound for every nearby player *except* the specified player
-                        blockPos, // The position of where the sound will come from
-                        SoundEvents.BEACON_POWER_SELECT, // The sound that will play, in this case, the sound the anvil plays when it lands.
-                        SoundSource.BLOCKS, // This determines which of the volume sliders affect this sound
-                        10f, //Volume multiplier, 1 is normal, 0.5 is half volume, etc
-                        0.3f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
-                );
+
 
 
                 vsCore.teleportShip((shipWorld as ServerShipWorld), (shiop as ServerShip), tpdata)
+                charge = 0f
             }
             //ShipTeleportData newData = new ShipTeleportData(newPos = position.toJOML());
             //VSCore.teleportShip(world, ship, newData);
